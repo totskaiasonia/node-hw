@@ -16,7 +16,7 @@ export const getAll = async (req, res) => {
         const result = await StudentModel.find({}, null, {sort, skip, limit}).exec();
 
         console.log(result);
-        res.status(200).json({data: result});
+        res.status(200).json({students: result});
     } catch (error) {
         console.log(error);
         res.status(500).json({msg: "Server error"});
@@ -51,11 +51,12 @@ export const getById = async (req, res) => {
 
 export const changeDataById = async (req, res) => {
     try {
+        const student = await StudentModel.findById(req.params.id);
         const updatedStudent = await StudentModel.findByIdAndUpdate(req.params.id, {
             firstname: req.query.firstname,
             lastname: req.query.lastname,
-            group: req.query.group,
-            rate: req.query.rate
+            group: req.query.group ? req.query.group : student.group,
+            rate: req.query.rate ? req.query.rate : student.rate
         }, {new: true});
         res.status(200).json({student: updatedStudent});
     } catch (error) {
