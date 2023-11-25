@@ -12,8 +12,6 @@ const props = defineProps({
       	required: true,
     },
 });
-
-const isGreen = ref(props.requestTitle === "get");
 </script>
 
 <template>

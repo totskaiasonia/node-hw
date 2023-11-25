@@ -1,15 +1,17 @@
 <script setup>
 import {ref} from 'vue';
 import { useStudentsStore } from '../../stores/students.js';
+import {useUserStore} from '../../stores/user.js';
 
 const limit = ref(0);
 const offset = ref(0);
 const sort = ref("");
 
 const store = useStudentsStore();
+const userStore = useUserStore();
 
 const sendRequest = () => {
-    store.getStudents(limit.value, offset.value, sort.value);
+    store.getStudents(limit.value, offset.value, sort.value, userStore.token);
 }
 
 </script>

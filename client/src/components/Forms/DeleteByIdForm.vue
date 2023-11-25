@@ -2,12 +2,17 @@
 import {ref} from 'vue';
 import { useStudentsStore } from '../../stores/students.js';
 
+import {useUserStore} from '../../stores/user.js';
+
+
 const id = ref('');
 
 const store = useStudentsStore();
+const userStore = useUserStore();
+
 
 const sendRequest = () => {
-    store.deleteSudent(id.value);
+    store.deleteSudent(id.value, userStore.token);
 }
 
 </script>

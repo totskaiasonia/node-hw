@@ -1,17 +1,26 @@
 import { defineStore } from 'pinia';
 
-export const useStudentsStore = defineStore('allStudents', {
+export const useUserStore = defineStore('user', {
     state: () => ({
-        allStudents: [],
+        isLoggedIn: false,
+        token: ''
     }),
 
     actions: {
-        async login(limit, offset, sort) {
-            let url = `http://localhost:3000/students?sortBy=${sort}&offset=${offset}&limit=${limit}`;
+        async login(name, password) {
+            let url = `http://localhost:3000/login`;
             try {
-                let data = await fetch(url);
-                let jsonData = await data.json();
-                this.allStudents = jsonData.students;
+                let data = await fetch(url, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({name, password}),
+				});
+				let jsonData = await data.json();
+				console.log(jsonData);
+				this.token = jsonData;
+				this.isLoggedIn = true;
             } catch (error) {
                 return error;
             }

@@ -1,6 +1,8 @@
 <script setup>
 import {ref} from 'vue';
 import { useStudentsStore } from '../../stores/students.js';
+import {useUserStore} from '../../stores/user.js';
+
 
 const id = ref('');
 
@@ -10,9 +12,11 @@ const group = ref(null);
 const rate = ref(null);
 
 const store = useStudentsStore();
+const userStore = useUserStore();
+
 
 const sendRequest = () => {
-    store.updateSudent(id.value, firstname.value, lastname.value, group.value, rate.value);
+    store.updateSudent(id.value, firstname.value, lastname.value, group.value, rate.value, userStore.token);
 }
 
 </script>

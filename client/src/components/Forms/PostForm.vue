@@ -1,6 +1,8 @@
 <script setup>
 import {ref} from 'vue';
 import { useStudentsStore } from '../../stores/students.js';
+import {useUserStore} from '../../stores/user.js';
+
 
 const firstname = ref('');
 const lastname = ref('');
@@ -8,9 +10,11 @@ const group = ref(null);
 const rate = ref(null);
 
 const store = useStudentsStore();
+const userStore = useUserStore();
+
 
 const sendRequest = () => {
-    store.postStudent(firstname.value, lastname.value, group.value, rate.value);
+    store.postStudent(firstname.value, lastname.value, group.value, rate.value, userStore.token);
 }
 
 </script>
